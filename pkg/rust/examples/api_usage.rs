@@ -7,14 +7,17 @@ mod api_usage {
         let mut glue = Glue::new(storage);
 
         let sqls = [
-            "CREATE TABLE Glue (id INTEGER);",
-            "INSERT INTO Glue VALUES (100);",
-            "INSERT INTO Glue VALUES (200);",
-            "DROP TABLE Glue;",
+            "CREATE TABLE IF NOT EXISTS Paper (id INTEGER, color TEXT);",
+            "INSERT INTO Paper VALUES (100, 'RED');",
+            "INSERT INTO Paper VALUES (200, 'BLUE');",
+            "UPDATE Paper SET color = 'GREEN' WHERE id = 100;",
+            "SELECT * FROM Paper;",
+            "DROP TABLE Paper;",
         ];
 
         for sql in sqls {
             glue.execute(sql).await.unwrap();
+            println!("sql: {}", sql);
         }
     }
 }
